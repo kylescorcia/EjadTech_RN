@@ -9,6 +9,7 @@ import Markdown from '../markdown';
 import { getInfoMessage } from './utils';
 import { themes } from '../../constants/colors';
 import MessageContext from './Context';
+import { withTheme } from '../../theme';
 
 const Content = React.memo((props) => {
 	if (props.isInfo) {
@@ -24,10 +25,10 @@ const Content = React.memo((props) => {
 
 	let content = null;
 
+	const { baseUrl, user } = useContext(MessageContext);
 	if (props.tmid && !props.msg) {
 		content = <Text style={[styles.text, { color: themes[props.theme].bodyText }]}>{I18n.t('Sent_an_attachment')}</Text>;
 	} else {
-		const { baseUrl, user } = useContext(MessageContext);
 		content = (
 			<Markdown
 				msg={props.msg}
@@ -43,12 +44,18 @@ const Content = React.memo((props) => {
 				tmid={props.tmid}
 				useRealName={props.useRealName}
 				theme={props.theme}
+				authorUsername={props.author.username}
+				style={[
+					// user.username === props.author.username ? {backgroundColor: '#7DCDEB', flexDirection: 'row', width:'70%'} : {backgroundColor: themes[props.theme].otherTextBackgroundColor, flexDirection: 'row', width:'70%'}, 
+					user.username === props.author.username ? {backgroundColor: themes[props.theme].chatTextBackgroundColor, flexDirection: 'row', minWidth:30, maxWidth:'70%'} : {backgroundColor: themes[props.theme].otherTextBackgroundColor, minWidth:30, maxWidth:'70%'}, 
+					{padding:5, paddingLeft:10, paddingRight:10, borderRadius: 5}
+				]}
 			/>
 		);
 	}
-
 	return (
-		<View style={props.isTemp && styles.temp}>
+		<View style={[
+			props.isTemp && styles.temp, user.username === props.author.username && { justifyContent: 'flex-end'}, {flex: 1, flexDirection: 'row'} ]} >
 			{content}
 		</View>
 	);

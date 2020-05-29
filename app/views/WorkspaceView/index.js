@@ -40,6 +40,13 @@ class WorkspaceView extends React.Component {
 		showLoginButton: PropTypes.bool
 	}
 
+	constructor(props) {
+		super(props);
+
+		const { navigation, Site_Name } = this.props;
+		navigation.navigate('LoginView', { title: Site_Name });
+	}
+
 	login = () => {
 		const { navigation, Site_Name } = this.props;
 		navigation.navigate('LoginView', { title: Site_Name });
@@ -70,40 +77,7 @@ class WorkspaceView extends React.Component {
 			theme, Site_Name, Site_Url, Assets_favicon_512, server, registrationEnabled, registrationText, showLoginButton
 		} = this.props;
 		return (
-			<FormContainer theme={theme} testID='workspace-view'>
-				<FormContainerInner>
-					<View style={styles.alignItemsCenter}>
-						{/*expert-group changed*/}
-						<Image style={styles.serverIcon} source={{ uri: 'logo' }} fadeDuration={0} />
-						<Text style={[styles.serverName, { color: themes[theme].titleText }]}>{Site_Name}</Text>
-						<Text style={[styles.serverUrl, { color: themes[theme].auxiliaryText }]}>{Site_Url}</Text>
-					</View>
-					{showLoginButton
-						? (
-							<Button
-								title={I18n.t('Login')}
-								type='primary'
-								onPress={this.login}
-								theme={theme}
-								testID='workspace-view-login'
-							/>
-						) : null}
-					{
-						registrationEnabled ? (
-							<Button
-								title={I18n.t('Create_account')}
-								type='secondary'
-								backgroundColor={themes[theme].chatComponentBackground}
-								onPress={this.register}
-								theme={theme}
-								testID='workspace-view-register'
-							/>
-						) : (
-							<Text style={[styles.registrationText, { color: themes[theme].auxiliaryText }]}>{registrationText}</Text>
-						)
-					}
-				</FormContainerInner>
-			</FormContainer>
+			<View />
 		);
 	}
 }

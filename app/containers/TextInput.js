@@ -132,7 +132,7 @@ export default class RCTextInput extends React.PureComponent {
 	render() {
 		const { showPassword } = this.state;
 		const {
-			label, left, error, loading, secureTextEntry, containerStyle, inputRef, iconLeft, iconRight, inputStyle, testID, placeholder, theme, ...inputProps
+			label, left, error, loading, secureTextEntry, containerStyle, inputRef, iconLeft, iconRight, inputStyle, testID, placeholder, theme, arabicInput, ...inputProps
 		} = this.props;
 		const { dangerColor } = themes[theme];
 		return (
@@ -155,6 +155,7 @@ export default class RCTextInput extends React.PureComponent {
 						style={[
 							styles.input,
 							iconLeft && styles.inputIconLeft,
+							arabicInput && { textAlign: 'right' },
 							(secureTextEntry || iconRight) && styles.inputIconRight,
 							{
 								backgroundColor: themes[theme].backgroundColor,

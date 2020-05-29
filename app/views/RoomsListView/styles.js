@@ -30,7 +30,8 @@ export default StyleSheet.create({
 		width: '100%',
 		position: 'absolute',
 		top: 0,
-		borderBottomWidth: StyleSheet.hairlineWidth
+		borderBottomWidth: StyleSheet.hairlineWidth,
+		paddingRight: 20
 	},
 	sortItemButton: {
 		height: 57,
@@ -56,7 +57,8 @@ export default StyleSheet.create({
 	sortIcon: {
 		width: 22,
 		height: 22,
-		marginHorizontal: 15
+		marginRight: 15,
+		marginLeft: 8
 	},
 	groupTitleContainer: {
 		paddingHorizontal: 15,

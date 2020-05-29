@@ -214,7 +214,7 @@ class SettingsView extends React.Component {
 					<Separator theme={theme} />
 					<ListItem
 						title={I18n.t('Contact_us')}
-						onPress={this.sendEmail}
+						//onPress={this.sendEmail}
 						showActionIndicator
 						testID='settings-view-contact'
 						right={this.renderDisclosure}
@@ -233,7 +233,7 @@ class SettingsView extends React.Component {
 					<ListItem
 						title={I18n.t('Review_this_app')}
 						showActionIndicator
-						onPress={onReviewPress}
+						//onPress={onReviewPress}
 						testID='settings-view-review-app'
 						right={this.renderDisclosure}
 						theme={theme}
@@ -242,7 +242,7 @@ class SettingsView extends React.Component {
 					<ListItem
 						title={I18n.t('Share_this_app')}
 						showActionIndicator
-						onPress={this.shareApp}
+						//onPress={this.shareApp}
 						testID='settings-view-share-app'
 						right={this.renderDisclosure}
 						theme={theme}
@@ -278,7 +278,7 @@ class SettingsView extends React.Component {
 
 					<ListItem
 						title={I18n.t('License')}
-						onPress={this.onPressLicense}
+						//onPress={this.onPressLicense}
 						showActionIndicator
 						testID='settings-view-license'
 						right={this.renderDisclosure}
@@ -295,9 +295,9 @@ class SettingsView extends React.Component {
 					<Separator theme={theme} />
 
 					<ListItem
-						title={I18n.t('Server_version', { version: server.version })}
+						title={I18n.t('Server_version', { version: server.version }) + ` (${ server.server.split('//')[1] })`}
 						onPress={this.copyServerVersion}
-						subtitle={`${ server.server.split('//')[1] }`}
+						subtitle={``}
 						testID='settings-view-server-version'
 						theme={theme}
 					/>

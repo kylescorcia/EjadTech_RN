@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 	},
 	updating: {
 		fontSize: 14,
+		paddingRight: 36,
 		...sharedStyles.textRegular
 	},
 	disclosure: {
@@ -68,7 +69,7 @@ const Header = React.memo(({
 			>
 				{connecting ? <Text style={[styles.updating, titleColorStyle]}>{I18n.t('Connecting')}</Text> : null}
 				{isFetching ? <Text style={[styles.updating, titleColorStyle]}>{I18n.t('Updating')}</Text> : null}
-				<View style={styles.button}>
+				{/*<View style={styles.button} display={{}}>
 					<Text style={[styles.server, isFetching && styles.serverSmall, titleColorStyle]} numberOfLines={1}>{serverName}</Text>
 					<Image
 						style={[
@@ -78,7 +79,7 @@ const Header = React.memo(({
 						]}
 						source={{ uri: 'disclosure_indicator_server' }}
 					/>
-				</View>
+				</View>*/}
 			</TouchableOpacity>
 		</View>
 	);

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import { Text, Image } from 'react-native';
+import React, { PureComponent, useContext } from 'react';
+import { Text, Image, View } from 'react-native';
 import { Parser, Node } from 'commonmark';
 import Renderer from 'commonmark-react-renderer';
 import PropTypes from 'prop-types';
@@ -20,6 +20,7 @@ import MarkdownTable from './Table';
 import MarkdownTableRow from './TableRow';
 import MarkdownTableCell from './TableCell';
 import mergeTextNodes from './mergeTextNodes';
+import MessageContext from '../message/Context';
 
 import styles from './styles';
 import { isValidURL } from '../../utils/url';
@@ -82,7 +83,8 @@ class Markdown extends PureComponent {
 		preview: PropTypes.bool,
 		theme: PropTypes.string,
 		testID: PropTypes.string,
-		style: PropTypes.array
+		style: PropTypes.array,
+		authorUsername: PropTypes.string
 	};
 
 	constructor(props) {
@@ -125,7 +127,8 @@ class Markdown extends PureComponent {
 
 			editedIndicator: this.renderEditedIndicator
 		},
-		renderParagraphsInLists: true
+		renderParagraphsInLists: true,
+		style: {baackgroundColor: 'black'}
 	});
 
 	editedMessage = (ast) => {
@@ -145,7 +148,7 @@ class Markdown extends PureComponent {
 
 	renderText = ({ context, literal }) => {
 		const {
-			numberOfLines, style = []
+			theme, numberOfLines, style = []
 		} = this.props;
 		const defaultStyle = [
 			this.isMessageContainsOnlyEmoji ? styles.textBig : {},
@@ -153,8 +156,12 @@ class Markdown extends PureComponent {
 		];
 		return (
 			<Text
-				accessibilityLabel={literal}
-				style={[styles.text, defaultStyle, ...style]}
+				
+				style={[
+					styles.text, 
+					defaultStyle, 
+					this.props.authorUsername === this.props.username ? { color:themes[theme].chatTextColor } : { color:themes[theme].chatTextColor },
+					...style]}
 				numberOfLines={numberOfLines}
 			>
 				{literal}
@@ -263,7 +270,7 @@ class Markdown extends PureComponent {
 
 	renderEmoji = ({ literal }) => {
 		const {
-			getCustomEmoji, baseUrl, customEmojis, style, theme
+			getCustomEmoji, baseUrl, customEmojis, style, theme, username, authorUsername
 		} = this.props;
 		return (
 			<MarkdownEmoji
@@ -272,7 +279,7 @@ class Markdown extends PureComponent {
 				getCustomEmoji={getCustomEmoji}
 				baseUrl={baseUrl}
 				customEmojis={customEmojis}
-				style={style}
+				style={[style, authorUsername === username && {backgroundColor: '#7DCDEB'}]}
 				theme={theme}
 			/>
 		);
@@ -369,7 +376,7 @@ class Markdown extends PureComponent {
 
 	render() {
 		const {
-			msg, numberOfLines, preview = false, theme, style = [], testID
+			msg, numberOfLines, preview = false, theme, style = [], testID 
 		} = this.props;
 
 		if (!msg) {
@@ -387,7 +394,7 @@ class Markdown extends PureComponent {
 			m = shortnameToUnicode(m);
 			m = removeMarkdown(m);
 			return (
-				<Text accessibilityLabel={m} style={[styles.text, { color: themes[theme].bodyText }, ...style]} numberOfLines={numberOfLines} testID={testID}>
+				<Text accessibilityLabel={m} style={[styles.text, { color:themes[theme].chatTextColor }, ...style]} numberOfLines={numberOfLines} testID={testID}>
 					{m}
 				</Text>
 			);

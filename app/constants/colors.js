@@ -53,7 +53,10 @@ export const themes = {
 		passcodePrimary: '#2F343D',
 		passcodeSecondary: '#6C727A',
 		passcodeDotEmpty: '#CBCED1',
-		passcodeDotFull: '#6C727A'
+		passcodeDotFull: '#6C727A',
+		otherTextBackgroundColor: '#92DB93',
+		chatTextBackgroundColor: '#7DCDEB',
+		chatTextColor: '#eeeeee'
 	},
 	dark: {
 		backgroundColor: '#030b1b',
@@ -95,7 +98,10 @@ export const themes = {
 		passcodePrimary: '#FFFFFF',
 		passcodeSecondary: '#CBCED1',
 		passcodeDotEmpty: '#CBCED1',
-		passcodeDotFull: '#6C727A'
+		passcodeDotFull: '#6C727A',
+		otherTextBackgroundColor: '#92DB93',
+		chatTextBackgroundColor: '#7DCDEB',
+		chatTextColor: '#eeeeee'
 	},
 	black: {
 		backgroundColor: '#000000',
@@ -137,6 +143,9 @@ export const themes = {
 		passcodePrimary: '#FFFFFF',
 		passcodeSecondary: '#CBCED1',
 		passcodeDotEmpty: '#CBCED1',
-		passcodeDotFull: '#6C727A'
+		passcodeDotFull: '#6C727A',
+		otherTextBackgroundColor: '#92DB93',
+		chatTextBackgroundColor: '#7DCDEB',
+		chatTextColor: '#eeeeee'
 	}
 };

@@ -21,6 +21,7 @@ export default StyleSheet.create({
 	sectionItemName: {
 		flex: 1,
 		fontSize: 14,
+		paddingRight: 20,
 		...sharedStyles.textRegular
 	},
 	sectionItemDescription: {

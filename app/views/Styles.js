@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 
 import { MAX_SCREEN_CONTENT_WIDTH, MAX_CONTENT_WIDTH } from '../constants/tablet';
+import { verticalScale, moderateScale } from '../utils/scaling';
 
 export default StyleSheet.create({
 	container: {
@@ -143,5 +144,5 @@ export default StyleSheet.create({
 	notchLandscapeContainer: {
 		marginTop: -34,
 		paddingHorizontal: 30
-	}
+	},
 });

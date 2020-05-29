@@ -357,7 +357,7 @@ class RoomActionsView extends React.Component {
 				actions.push({
 					icon: 'team',
 					name: I18n.t('Members'),
-					description: membersCount > 0 ? `${ membersCount } ${ I18n.t('members') }` : null,
+					description: membersCount > 0 ? `${ membersCount }' + ' ${ I18n.t('members') }` : null,
 					route: 'RoomMembersView',
 					params: { rid, room },
 					testID: 'room-actions-members'

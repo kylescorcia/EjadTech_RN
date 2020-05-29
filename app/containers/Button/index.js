@@ -49,7 +49,7 @@ export default class Button extends React.PureComponent {
 
 	render() {
 		const {
-			title, type, onPress, disabled, backgroundColor, color, loading, style, theme, fontSize, ...otherProps
+			title, type, onPress, disabled, backgroundColor, color, loading, style, theme, fontSize, boldBtn, ...otherProps
 		} = this.props;
 		const isPrimary = type === 'primary';
 
@@ -80,7 +80,8 @@ export default class Button extends React.PureComponent {
 								style={[
 									styles.text,
 									{ color: textColor },
-									fontSize && { fontSize }
+									fontSize && { fontSize },
+									boldBtn && {fontWeight: 'bold'}
 								]}
 							>
 								{title}

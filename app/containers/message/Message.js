@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 
 import MessageContext from './Context';
@@ -49,20 +49,20 @@ const MessageInner = React.memo((props) => {
 		);
 	}
 	return (
-		<>
+		<View >
 			<User {...props} />
 			<Content {...props} />
 			<Attachments {...props} />
 			<Urls {...props} />
 			<Thread {...props} />
 			<Reactions {...props} />
-			<Broadcast {...props} />
-		</>
+			<Broadcast {...props} /> 
+		</View>
 	);
 });
 MessageInner.displayName = 'MessageInner';
-
 const Message = React.memo((props) => {
+
 	if (props.isThreadReply || props.isThreadSequential || props.isInfo) {
 		const thread = props.isThreadReply ? <RepliedThread {...props} /> : null;
 		return (
@@ -82,10 +82,12 @@ const Message = React.memo((props) => {
 			</View>
 		);
 	}
+
+	//<View style={[styles.container, props.style, props.author.username === useContext(MessageContext).user.username && {backgroundColor: '#7DCDEB'}]}>
 	return (
-		<View style={[styles.container, props.style]}>
+		<View style={[styles.container, props.style, props.author.username === useContext(MessageContext).user.username && {}]}>
 			<View style={styles.flex}>
-				<MessageAvatar {...props} />
+				{props.author.username !== useContext(MessageContext).user.username && <MessageAvatar {...props} />}
 				<View
 					style={[
 						styles.messageContent,

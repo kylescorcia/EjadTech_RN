@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
+import MessageContext from './Context';
 
 import Image from './Image';
 import Audio from './Audio';
@@ -8,11 +9,13 @@ import Video from './Video';
 import Reply from './Reply';
 
 const Attachments = React.memo(({
-	attachments, timeFormat, showAttachment, getCustomEmoji, theme
+	attachments, timeFormat, showAttachment, getCustomEmoji, theme, props
 }) => {
 	if (!attachments || attachments.length === 0) {
 		return null;
 	}
+	
+	const { baseUrl, user } = useContext(MessageContext);
 
 	return attachments.map((file, index) => {
 		if (file.image_url) {

@@ -3,6 +3,7 @@ import { I18nManager } from 'react-native';
 import * as RNLocalize from 'react-native-localize';
 
 import en from './locales/en';
+import ar from './locales/ar';
 import ru from './locales/ru';
 import fr from './locales/fr';
 import de from './locales/de';
@@ -16,6 +17,7 @@ import ja from './locales/ja';
 
 i18n.translations = {
 	en,
+	ar,
 	ru,
 	'pt-BR': ptBR,
 	'zh-CN': zhCN,
@@ -29,7 +31,7 @@ i18n.translations = {
 };
 i18n.fallbacks = true;
 
-const defaultLanguage = { languageTag: 'en', isRTL: false };
+const defaultLanguage = { languageTag: 'en', isRTL: true };
 const availableLanguages = Object.keys(i18n.translations);
 const { languageTag, isRTL } = RNLocalize.findBestAvailableLanguage(availableLanguages) || defaultLanguage;
 

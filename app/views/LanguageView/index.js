@@ -22,15 +22,18 @@ import { getUserSelector } from '../../selectors/login';
 import database from '../../lib/database';
 
 const LANGUAGES = [
-	{
+ 	{
+		label: 'English',
+		value: 'en'
+	}, {
+		label: 'Arabic (العربية )',
+		value: 'ar'
+	}, {
 		label: '简体中文',
 		value: 'zh-CN'
 	}, {
 		label: 'Deutsch',
 		value: 'de'
-	}, {
-		label: 'English',
-		value: 'en'
 	}, {
 		label: 'Español (ES)',
 		value: 'es-ES'
