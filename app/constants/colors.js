@@ -56,7 +56,7 @@ export const themes = {
 		passcodeDotFull: '#6C727A',
 		otherTextBackgroundColor: '#92DB93',
 		chatTextBackgroundColor: '#7DCDEB',
-		chatTextColor: '#eeeeee'
+		chatTextColor: '#ffffff'
 	},
 	dark: {
 		backgroundColor: '#030b1b',
@@ -101,7 +101,7 @@ export const themes = {
 		passcodeDotFull: '#6C727A',
 		otherTextBackgroundColor: '#92DB93',
 		chatTextBackgroundColor: '#7DCDEB',
-		chatTextColor: '#eeeeee'
+		chatTextColor: '#ffffff'
 	},
 	black: {
 		backgroundColor: '#000000',
@@ -146,6 +146,6 @@ export const themes = {
 		passcodeDotFull: '#6C727A',
 		otherTextBackgroundColor: '#92DB93',
 		chatTextBackgroundColor: '#7DCDEB',
-		chatTextColor: '#eeeeee'
+		chatTextColor: '#ffffff'
 	}
 };

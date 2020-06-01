@@ -62,6 +62,7 @@ import { MAX_SIDEBAR_WIDTH } from '../../constants/tablet';
 import { withSplit } from '../../split';
 import { getUserSelector } from '../../selectors/login';
 import { goRoom } from '../../utils/goRoom';
+import SegmentedControl from '@react-native-community/segmented-control';
 
 const SCROLL_OFFSET = 56;
 const INITIAL_NUM_TO_RENDER = isTablet ? 20 : 12;
@@ -90,7 +91,8 @@ const shouldUpdateProps = [
 	'appState',
 	'theme',
 	'split',
-	'refreshing'
+	'refreshing',
+	'selectedIndex'
 ];
 const getItemLayout = (data, index) => ({
 	length: ROW_HEIGHT,
@@ -173,7 +175,8 @@ class RoomsListView extends React.Component {
 		closeServerDropdown: PropTypes.func,
 		useRealName: PropTypes.bool,
 		connected: PropTypes.bool,
-		split: PropTypes.bool
+		split: PropTypes.bool,
+		selectedIndex: PropTypes.number
 	};
 
 	constructor(props) {
@@ -190,7 +193,8 @@ class RoomsListView extends React.Component {
 			loading: true,
 			allChats: [],
 			chats: [],
-			width
+			width,
+			selectedIndex: 0,
 		};
 	}
 
@@ -382,7 +386,7 @@ class RoomsListView extends React.Component {
 			sortBy,
 			showUnread,
 			showFavorites,
-			groupByType
+			groupByType,
 		} = this.props;
 
 		const db = database.active;
@@ -437,15 +441,25 @@ class RoomsListView extends React.Component {
 			}
 
 			// type
-			if (groupByType) {
+			// if (groupByType) {
+			if (true) {
 				const discussions = chats.filter(s => s.prid);
 				const channels = chats.filter(s => s.t === 'c' && !s.prid);
 				const privateGroup = chats.filter(s => s.t === 'p' && !s.prid);
 				const direct = chats.filter(s => s.t === 'd' && !s.prid);
-				tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
-				tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
-				tempChats = this.addRoomsGroup(privateGroup, GROUPS_HEADER, tempChats);
-				tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
+				if (this.state.selectedIndex === 0) {
+					tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
+				}
+				if (this.state.selectedIndex === 1) {
+					tempChats = this.addRoomsGroup(privateGroup, GROUPS_HEADER, tempChats);
+				}
+				if (this.state.selectedIndex === 2) {
+					tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
+				}
+				if (this.state.selectedIndex === 3) {
+					tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
+				}
+				// }
 			} else if (showUnread || showFavorites) {
 				tempChats = this.addRoomsGroup(chats, CHATS_HEADER, tempChats);
 			} else {
@@ -709,6 +723,8 @@ class RoomsListView extends React.Component {
 	renderListHeader = () => {
 		const { searching } = this.state;
 		const { sortBy } = this.props;
+		const { selectedIndex } = this.state;
+
 		return (
 			<ListHeader
 				inputRef={this.getInputRef}
@@ -721,6 +737,37 @@ class RoomsListView extends React.Component {
 				goDirectory={this.goDirectory}
 			/>
 		);
+	};
+
+	//ExpertGroup changed
+	onGroupChange = (event) => {
+
+
+		this.setState({
+			selectedIndex: event.nativeEvent.selectedSegmentIndex,
+		});
+
+		const offset = isAndroid ? 0 : SCROLL_OFFSET;
+		if (this.scroll.scrollTo) {
+			this.scroll.scrollTo({ x: 0, y: offset, animated: true });
+		} else if (this.scroll.scrollToOffset) {
+			this.scroll.scrollToOffset({ offset });
+		}
+		
+		this.setSortPreference({ groupByType: true });
+		this.onRefresh();
+		this.getSubscriptions(true);
+	};
+
+	setSortPreference = (param) => {
+		const { setSortPreference } = this.props;
+
+		try {
+			setSortPreference(param);
+			RocketChat.saveSortPreference(param);
+		} catch (e) {
+			log(e);
+		}
 	};
 
 	getIsRead = (item) => {
@@ -831,6 +878,8 @@ class RoomsListView extends React.Component {
 			/>
 		);
 	};
+	
+	
 
 	render = () => {
 		console.count(`${ this.constructor.name }.render calls`);
@@ -841,7 +890,8 @@ class RoomsListView extends React.Component {
 			showUnread,
 			showServerDropdown,
 			showSortDropdown,
-			theme
+			theme,
+			selectedIndex
 		} = this.props;
 
 		return (
@@ -850,13 +900,25 @@ class RoomsListView extends React.Component {
 				testID='rooms-list-view'
 				forceInset={{ vertical: 'never' }}
 			>
+				<SegmentedControl
+    				values={['Direct Message', 'Private Group', 'Channels', 'Discussions']}
+					selectedIndex={this.state.selectedIndex}
+					tintColor="#555555"
+					backgroundColor="#222222"
+					style={[{height: 45, textAlign: 'center', marginLeft: 0}]}
+					fontStyle={{
+						fontFamily: 'Optima',
+						fontSize: 12,
+					  }}
+					onChange={ this.onGroupChange }
+ 				 />
 				<StatusBar theme={theme} />
 				{this.renderScroll()}
 				{showSortDropdown ? (
 					<SortDropdown
 						close={this.toggleSort}
 						sortBy={sortBy}
-						groupByType={groupByType}
+						groupByType={true}
 						showFavorites={showFavorites}
 						showUnread={showUnread}
 					/>
@@ -866,6 +928,7 @@ class RoomsListView extends React.Component {
 		);
 	};
 }
+
 
 const mapStateToProps = state => ({
 	user: getUserSelector(state),

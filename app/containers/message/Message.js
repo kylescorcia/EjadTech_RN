@@ -19,6 +19,7 @@ import Discussion from './Discussion';
 import Content from './Content';
 import ReadReceipt from './ReadReceipt';
 import CallButton from './CallButton';
+import SyncStorage from 'sync-storage';
 
 const MessageInner = React.memo((props) => {
 	if (props.type === 'discussion-created') {
@@ -62,6 +63,7 @@ const MessageInner = React.memo((props) => {
 });
 MessageInner.displayName = 'MessageInner';
 const Message = React.memo((props) => {
+	const visibility = SyncStorage.get('visibility');
 
 	if (props.isThreadReply || props.isThreadSequential || props.isInfo) {
 		const thread = props.isThreadReply ? <RepliedThread {...props} /> : null;
@@ -90,8 +92,8 @@ const Message = React.memo((props) => {
 				{props.author.username !== useContext(MessageContext).user.username && <MessageAvatar {...props} />}
 				<View
 					style={[
-						styles.messageContent,
-						props.isHeader && styles.messageContentWithHeader
+						props.author.username !== useContext(MessageContext).user.username ? styles.messageContent : visibility === 'visible' ? styles.messageContentRight : styles.messageContent,
+						props.author.username !== useContext(MessageContext).user.username ? props.isHeader && styles.messageContentWithHeader : visibility === 'visible' ? props.isHeader && styles.messageContentWithHeaderRight : props.isHeader && styles.messageContentWithHeader,
 					]}
 				>
 					<MessageInner {...props} />
@@ -101,6 +103,7 @@ const Message = React.memo((props) => {
 					unread={props.unread}
 					theme={props.theme}
 				/>
+				{props.author.username === useContext(MessageContext).user.username && visibility === 'visible' && <MessageAvatar {...props} />}
 			</View>
 		</View>
 	);
@@ -148,7 +151,7 @@ Message.propTypes = {
 	onLongPress: PropTypes.func,
 	isReadReceiptEnabled: PropTypes.bool,
 	unread: PropTypes.bool,
-	theme: PropTypes.string
+	theme: PropTypes.string,
 };
 
 MessageInner.propTypes = {

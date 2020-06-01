@@ -32,7 +32,7 @@ export default StyleSheet.create({
 		alignItems: 'center'
 	},
 	bannerText: {
-		flex: 1
+		flex: 1,
 	},
 	bannerModalTitle: {
 		fontSize: 16,

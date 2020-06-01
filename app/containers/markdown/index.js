@@ -84,7 +84,8 @@ class Markdown extends PureComponent {
 		theme: PropTypes.string,
 		testID: PropTypes.string,
 		style: PropTypes.array,
-		authorUsername: PropTypes.string
+		authorUsername: PropTypes.string,
+		isDescription: PropTypes.string
 	};
 
 	constructor(props) {
@@ -128,7 +129,6 @@ class Markdown extends PureComponent {
 			editedIndicator: this.renderEditedIndicator
 		},
 		renderParagraphsInLists: true,
-		style: {baackgroundColor: 'black'}
 	});
 
 	editedMessage = (ast) => {
@@ -148,7 +148,7 @@ class Markdown extends PureComponent {
 
 	renderText = ({ context, literal }) => {
 		const {
-			theme, numberOfLines, style = []
+			theme, numberOfLines, style = [], msg, isReply
 		} = this.props;
 		const defaultStyle = [
 			this.isMessageContainsOnlyEmoji ? styles.textBig : {},
@@ -156,11 +156,10 @@ class Markdown extends PureComponent {
 		];
 		return (
 			<Text
-				
 				style={[
 					styles.text, 
 					defaultStyle, 
-					this.props.authorUsername === this.props.username ? { color:themes[theme].chatTextColor } : { color:themes[theme].chatTextColor },
+					isReply !== '1' ? { color:themes[theme].chatTextColor } : { color:'#222' },
 					...style]}
 				numberOfLines={numberOfLines}
 			>
@@ -195,9 +194,9 @@ class Markdown extends PureComponent {
 				style={[
 					{
 						...styles.codeBlock,
-						color: themes[theme].bodyText,
-						backgroundColor: themes[theme].bannerBackground,
-						borderColor: themes[theme].bannerBackground
+						color: '#555555',
+						backgroundColor: '#d2d2d2',
+						borderColor: '#d2d2d2'
 					},
 					...style
 				]}
@@ -300,7 +299,7 @@ class Markdown extends PureComponent {
 
 	renderEditedIndicator = () => {
 		const { theme } = this.props;
-		return <Text style={[styles.edited, { color: themes[theme].auxiliaryText }]}> ({I18n.t('edited')})</Text>;
+		return <Text style={[styles.edited, { color: themes[theme].chatTextColor }]}> ({I18n.t('edited')})</Text>;
 	}
 
 	renderHeading = ({ children, level }) => {
@@ -314,18 +313,27 @@ class Markdown extends PureComponent {
 	};
 
 	renderList = ({
-		children, start, tight, type
+		children, start, tight, type, 
 	}) => {
-		const { numberOfLines } = this.props;
+		const { numberOfLines, msg, username, authorUsername, theme } = this.props;
 		return (
-			<MarkdownList
-				ordered={type !== 'bullet'}
-				start={start}
-				tight={tight}
-				numberOfLines={numberOfLines}
-			>
-				{children}
-			</MarkdownList>
+			<Text 
+				style={[
+					username === authorUsername ? 
+					{backgroundColor: themes[theme].chatTextBackgroundColor, minWidth:30, maxWidth:'75%'} : 
+					{backgroundColor: themes[theme].otherTextBackgroundColor, minWidth:30, maxWidth:'80%'}, 
+					{padding:5, paddingLeft:10, paddingRight:10, borderRadius: 0},
+			]}>
+				{msg}
+			</Text>
+			// <MarkdownList
+			// 	ordered={type !== 'bullet'}
+			// 	start={start}
+			// 	tight={tight}
+			// 	numberOfLines={numberOfLines}
+			// >
+			// 	{children}
+			// </MarkdownList>
 		);
 	};
 
@@ -376,7 +384,7 @@ class Markdown extends PureComponent {
 
 	render() {
 		const {
-			msg, numberOfLines, preview = false, theme, style = [], testID 
+			msg, numberOfLines, preview = false, theme, style = [], testID, isBanner, isReplyBottom,
 		} = this.props;
 
 		if (!msg) {
@@ -394,7 +402,10 @@ class Markdown extends PureComponent {
 			m = shortnameToUnicode(m);
 			m = removeMarkdown(m);
 			return (
-				<Text accessibilityLabel={m} style={[styles.text, { color:themes[theme].chatTextColor }, ...style]} numberOfLines={numberOfLines} testID={testID}>
+				<Text accessibilityLabel={m} 
+				style={[
+					styles.text, isBanner === '1'||isReplyBottom === '1' ? { color: '#222' } : {color: themes[theme].chatTextColor }, styles.text, ...style]} 
+					numberOfLines={numberOfLines} testID={testID}>
 					{m}
 				</Text>
 			);

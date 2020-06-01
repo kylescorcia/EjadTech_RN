@@ -17,9 +17,11 @@ import ListItem from '../containers/ListItem';
 import { CustomIcon } from '../lib/Icons';
 import { THEME_PREFERENCES_KEY } from '../lib/rocketchat';
 import { supportSystemTheme } from '../utils/deviceInfo';
+import SyncStorage from 'sync-storage';
 
 const THEME_GROUP = 'THEME_GROUP';
 const DARK_GROUP = 'DARK_GROUP';
+const VISIBILITY_GROUP = 'VISIBILITY_GROUP';
 
 const SYSTEM_THEME = {
 	label: I18n.t('Automatic'),
@@ -46,6 +48,16 @@ const THEMES = [
 		label: I18n.t('Black'),
 		value: 'black',
 		group: DARK_GROUP
+	}, {
+		label: I18n.t('Visible'),
+		value: 'visible',
+		separator: true,
+		header: I18n.t('Visible_title'),
+		group: VISIBILITY_GROUP
+	}, {
+		label: I18n.t('Invisible'),
+		value: 'invisible',
+		group: VISIBILITY_GROUP
 	}
 ];
 
@@ -83,18 +95,21 @@ class ThemeView extends React.Component {
 	isSelected = (item) => {
 		const { themePreferences } = this.props;
 		const { group } = item;
-		const { darkLevel, currentTheme } = themePreferences;
+		const { darkLevel, currentTheme, visibility } = themePreferences;
 		if (group === THEME_GROUP) {
 			return item.value === currentTheme;
 		}
 		if (group === DARK_GROUP) {
 			return item.value === darkLevel;
 		}
+		if (group === VISIBILITY_GROUP) {
+			return item.value === visibility;
+		}
 	}
 
-	onClick = (item) => {
+	onClick = async (item) => {
 		const { themePreferences } = this.props;
-		const { darkLevel, currentTheme } = themePreferences;
+		const { darkLevel, currentTheme, visibility } = themePreferences;
 		const { value, group } = item;
 		let changes = {};
 		if (group === THEME_GROUP && currentTheme !== value) {
@@ -102,6 +117,10 @@ class ThemeView extends React.Component {
 		}
 		if (group === DARK_GROUP && darkLevel !== value) {
 			changes = { darkLevel: value };
+		}
+		if (group === VISIBILITY_GROUP && visibility !== value) {
+			changes = { visibility: value}
+			SyncStorage.set('visibility', value);
 		}
 		this.setTheme(changes);
 	}

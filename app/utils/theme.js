@@ -16,7 +16,7 @@ export const defaultTheme = () => {
 };
 
 export const getTheme = (themePreferences) => {
-	const { darkLevel, currentTheme } = themePreferences;
+	const { darkLevel, currentTheme, visibliity } = themePreferences;
 	let theme = currentTheme;
 	if (currentTheme === 'automatic') {
 		theme = defaultTheme();

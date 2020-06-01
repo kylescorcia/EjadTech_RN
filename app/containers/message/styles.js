@@ -15,10 +15,17 @@ export default StyleSheet.create({
 	},
 	messageContent: {
 		flex: 1,
-		marginLeft: 46
+		marginLeft: 46,
+	},
+	messageContentRight: {
+		flex: 1,
+		marginRight: 44,
 	},
 	messageContentWithHeader: {
-		marginLeft: 10
+		marginLeft: 10,
+	},
+	messageContentWithHeaderRight: {
+		marginRight: 8,
 	},
 	messageContentWithError: {
 		marginLeft: 0

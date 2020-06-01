@@ -71,10 +71,11 @@ const Title = React.memo(({ attachment, timeFormat, theme }) => {
 		return null;
 	}
 	const time = attachment.ts ? moment(attachment.ts).format(timeFormat) : null;
+	const { baseUrl, user } = useContext(MessageContext);
 	return (
 		<View style={styles.authorContainer}>
-			{attachment.author_name ? <Text style={[styles.author, { color: themes[theme].bodyText }]}>{attachment.author_name}</Text> : null}
-			{time ? <Text style={[styles.time, { color: themes[theme].auxiliaryText }]}>{ time }</Text> : null}
+			{attachment.author_name ? <Text style={[styles.author, { color: '#555' }]}>{user.name}</Text> : null}
+			{time ? <Text style={[styles.time, { color: '#555' }]}>{ time }</Text> : null}
 		</View>
 	);
 });
@@ -94,6 +95,7 @@ const Description = React.memo(({
 			username={user.username}
 			getCustomEmoji={getCustomEmoji}
 			theme={theme}
+			isReply='1'
 		/>
 	);
 }, (prevProps, nextProps) => {
@@ -146,7 +148,7 @@ const Reply = React.memo(({
 		}
 		openLink(url, theme);
 	};
-
+	// #016300
 	return (
 		<Touchable
 			onPress={onPress}
@@ -154,8 +156,8 @@ const Reply = React.memo(({
 				styles.button,
 				index > 0 && styles.marginTop,
 				{
-					backgroundColor: themes[theme].chatComponentBackground,
-					borderColor: themes[theme].borderColor
+					backgroundColor: '#eee',
+					borderColor: '#ccc'
 				},
 				split && sharedStyles.tabletContent
 			]}

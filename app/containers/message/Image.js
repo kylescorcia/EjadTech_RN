@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
 import equal from 'deep-equal';
@@ -14,6 +14,7 @@ import { withSplit } from '../../split';
 import { themes } from '../../constants/colors';
 import sharedStyles from '../../views/Styles';
 import MessageContext from './Context';
+import { withTheme } from '../../theme';
 
 const ImageProgress = createImageProgress(FastImage);
 
@@ -29,9 +30,9 @@ const Button = React.memo(({
 	</Touchable>
 ));
 
-export const MessageImage = React.memo(({ img, theme }) => (
+export const MessageImage = React.memo(({ img, theme, authorUsername, username }) => (
 	<ImageProgress
-		style={[styles.image, { borderColor: themes[theme].borderColor }]}
+		style={[styles.image, { borderColor: themes[theme].borderColor, width: '80%'}, authorUsername === username && {marginLeft: 'auto'} ]}
 		source={{ uri: encodeURI(img) }}
 		resizeMode={FastImage.resizeMode.cover}
 		indicator={Progress.Pie}
@@ -42,7 +43,7 @@ export const MessageImage = React.memo(({ img, theme }) => (
 ));
 
 const ImageContainer = React.memo(({
-	file, imageUrl, showAttachment, getCustomEmoji, split, theme
+	file, imageUrl, showAttachment, getCustomEmoji, split, theme, props, author
 }) => {
 	const { baseUrl, user } = useContext(MessageContext);
 	const img = imageUrl || formatAttachmentUrl(file.image_url, user.id, user.token, baseUrl);
@@ -55,17 +56,26 @@ const ImageContainer = React.memo(({
 	if (file.description) {
 		return (
 			<Button split={split} theme={theme} onPress={onPress}>
-				<View>
-					<MessageImage img={img} theme={theme} />
-					<Markdown msg={file.description} baseUrl={baseUrl} username={user.username} getCustomEmoji={getCustomEmoji} theme={theme} />
+				<View  style={[{ width: '100%', flexDirection: 'column', justifyContent: 'flex-end'}]}>
+					<MessageImage img={img} theme={theme} authorUsername={author.username} username={user.username} />
+					<Markdown 
+					msg={file.description} baseUrl={baseUrl} 
+					username={user.username} 
+					getCustomEmoji={getCustomEmoji} 
+					theme={theme} isDescription='1' 
+					style={[author.username === user.username && {marginLeft: 'auto'}, 
+					// user.username === props.author.username ? {backgroundColor: '#7DCDEB', flexDirection: 'row', width:'70%'} : {backgroundColor: themes[props.theme].otherTextBackgroundColor, flexDirection: 'row', width:'70%'}, 
+					user.username === author.username ? {backgroundColor: themes[theme].chatTextBackgroundColor, flexDirection: 'row', minWidth:30, maxWidth:'80%'} : {backgroundColor: themes[theme].otherTextBackgroundColor, minWidth:30, maxWidth:'80%'}, 
+					{padding:5, paddingLeft:10, paddingRight:10, borderRadius: 5}]}
+					/>
 				</View>
 			</Button>
 		);
 	}
 
 	return (
-		<Button split={split} theme={theme} onPress={onPress}>
-			<MessageImage img={img} theme={theme} />
+		<Button split={split} theme={theme} onPress={onPress} style={[{ width: '100%', flexDirection: 'column', justifyContent: 'flex-end'}]}>
+			<MessageImage img={img} theme={theme} authorUsername={author.username} username={user.username} />
 		</Button>
 	);
 }, (prevProps, nextProps) => equal(prevProps.file, nextProps.file) && prevProps.split === nextProps.split && prevProps.theme === nextProps.theme);
@@ -76,7 +86,8 @@ ImageContainer.propTypes = {
 	showAttachment: PropTypes.func,
 	theme: PropTypes.string,
 	getCustomEmoji: PropTypes.func,
-	split: PropTypes.bool
+	split: PropTypes.bool,
+	author: PropTypes.object,
 };
 ImageContainer.displayName = 'MessageImageContainer';
 

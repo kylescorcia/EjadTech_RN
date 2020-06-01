@@ -48,6 +48,7 @@ import RoomsListView from './views/RoomsListView';
 import RoomView from './views/RoomView';
 import ScreenLockedView from './views/ScreenLockedView';
 import ChangePasscodeView from './views/ChangePasscodeView';
+import SyncStorage from 'sync-storage';
 
 if (isIOS) {
 	const RNScreens = require('react-native-screens');
@@ -67,6 +68,7 @@ const parseDeepLinking = (url) => {
 	}
 	return null;
 };
+
 
 // Outside
 const OutsideStack = createStackNavigator({
@@ -608,7 +610,8 @@ export default class Root extends React.Component {
 			theme: defaultTheme(),
 			themePreferences: {
 				currentTheme: supportSystemTheme() ? 'automatic' : 'light',
-				darkLevel: 'dark'
+				darkLevel: 'dark',
+				visibility: 'invisible',
 			}
 		};
 		if (isTablet) {
@@ -661,6 +664,9 @@ export default class Root extends React.Component {
 		} else {
 			store.dispatch(appInit());
 		}
+
+		const data = await SyncStorage.init();
+ 		console.log('AsyncStorage is ready!', data);
 	}
 
 	setTheme = (newTheme = {}) => {

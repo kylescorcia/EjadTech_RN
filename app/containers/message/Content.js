@@ -47,15 +47,17 @@ const Content = React.memo((props) => {
 				authorUsername={props.author.username}
 				style={[
 					// user.username === props.author.username ? {backgroundColor: '#7DCDEB', flexDirection: 'row', width:'70%'} : {backgroundColor: themes[props.theme].otherTextBackgroundColor, flexDirection: 'row', width:'70%'}, 
-					user.username === props.author.username ? {backgroundColor: themes[props.theme].chatTextBackgroundColor, flexDirection: 'row', minWidth:30, maxWidth:'70%'} : {backgroundColor: themes[props.theme].otherTextBackgroundColor, minWidth:30, maxWidth:'70%'}, 
-					{padding:5, paddingLeft:10, paddingRight:10, borderRadius: 5}
+					user.username === props.author.username ? 
+					{backgroundColor: themes[props.theme].chatTextBackgroundColor, minWidth:30, maxWidth:'75%'} : 
+					{backgroundColor: themes[props.theme].otherTextBackgroundColor, minWidth:30, maxWidth:'80%'}, 
+					{padding:5, paddingLeft:10, paddingRight:10, borderRadius: 0},
 				]}
 			/>
 		);
 	}
 	return (
 		<View style={[
-			props.isTemp && styles.temp, user.username === props.author.username && { justifyContent: 'flex-end'}, {flex: 1, flexDirection: 'row'} ]} >
+			props.isTemp && styles.temp, user.username === props.author.username ? { alignSelf: 'flex-end' } : {alignSelf: 'flex-start'},]} >
 			{content}
 		</View>
 	);

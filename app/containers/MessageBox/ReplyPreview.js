@@ -69,6 +69,7 @@ const ReplyPreview = React.memo(({
 					numberOfLines={1}
 					preview
 					theme={theme}
+					isReplyBottom='1'
 				/>
 			</View>
 			<CustomIcon name='cross' color={themes[theme].auxiliaryText} size={20} style={styles.close} onPress={close} />

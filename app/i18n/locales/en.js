@@ -536,6 +536,8 @@ export default {
 	Verify_your_email_for_the_code_we_sent: 'Verify your email for the code we sent',
 	Video_call: 'Video call',
 	View_Original: 'View Original',
+	Visible: 'Visible',
+	Visible_title: 'Visibility of username and avatar',
 	Voice_call: 'Voice call',
 	Websocket_disabled: 'Websocket is disabled for this server.\n{{contact}}',
 	Welcome: 'Welcome',

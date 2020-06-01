@@ -15,7 +15,8 @@ const style = StyleSheet.create({
 	},
 	bullet: {
 		alignItems: 'flex-end',
-		marginRight: 5
+		marginRight: 5,
+		marginTop: 5
 	},
 	contents: {
 		flex: 1

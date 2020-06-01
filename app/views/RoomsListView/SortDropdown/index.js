@@ -159,14 +159,7 @@ class Sort extends PureComponent {
 						/>
 					</SortItemButton>
 					<View style={[styles.sortSeparator, { backgroundColor: themes[theme].separatorColor }]} />
-					<SortItemButton onPress={this.toggleGroupByType} theme={theme}>
-						<SortItemContent
-							icon='sort-amount-down'
-							label='Group_by_type'
-							checked={groupByType}
-							theme={theme}
-						/>
-					</SortItemButton>
+					
 					<SortItemButton onPress={this.toggleGroupByFavorites} theme={theme}>
 						<SortItemContent
 							icon='star'

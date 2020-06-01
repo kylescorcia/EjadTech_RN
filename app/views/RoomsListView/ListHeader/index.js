@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import Directory from './Directory';
 import Sort from './Sort';
+import SegmentedControl from '@react-native-community/segmented-control';
+import {
+	Text,
+} from 'react-native';
 
 const ListHeader = React.memo(({
 	searching,
@@ -13,7 +17,7 @@ const ListHeader = React.memo(({
 	goDirectory,
 	inputRef,
 	onCancelSearchPress,
-	onSearchFocus
+	onSearchFocus,
 }) => (
 	<>
 		<SearchBar
@@ -28,6 +32,8 @@ const ListHeader = React.memo(({
 	</>
 ));
 
+
+
 ListHeader.propTypes = {
 	searching: PropTypes.bool,
 	sortBy: PropTypes.string,
@@ -36,7 +42,7 @@ ListHeader.propTypes = {
 	goDirectory: PropTypes.func,
 	inputRef: PropTypes.func,
 	onCancelSearchPress: PropTypes.func,
-	onSearchFocus: PropTypes.func
+	onSearchFocus: PropTypes.func,
 };
 
 export default ListHeader;

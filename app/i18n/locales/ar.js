@@ -485,6 +485,8 @@ export default {
 	Verify_email_desc: 'لقد أرسلنا إليك بريدًا إلكترونيًا لتأكيد تسجيلك. إذا لم تتلق بريدًا إلكترونيًا قريبًا ، فيرجى العودة والمحاولة مرة أخرى.',
 	Video_call: 'مكالمة فيديو',
 	View_Original: 'عرض المحتوى الأصلي',
+	Visible: 'مرئي',
+	Visible_title: 'رؤية اسم المستخدم والصورة الرمزية',
 	Voice_call: 'مكالمة صوتية',
 	Websocket_disabled: 'تم تعطيل Websocket لهذا الخادم.\n{{contact}}',
 	Welcome: 'مرحبا',

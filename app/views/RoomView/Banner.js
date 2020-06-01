@@ -31,6 +31,7 @@ const Banner = React.memo(({
 						numberOfLines={1}
 						style={[styles.bannerText]}
 						preview
+						isBanner='1'
 					/>
 					<BorderlessButton onPress={closeBanner}>
 						<CustomIcon
