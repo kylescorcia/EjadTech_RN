@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">EjadTech</string>
-    <string name="share_extension_name">Rocket.Chat Experimental</string>
+    <string name="app_name">EjadChat</string>
+    <string name="share_extension_name">EjadChat</string>
 </resources>

@@ -13,7 +13,7 @@ export const cardStyle = {
 
 const borderBottom = theme => ({
 	borderBottomWidth: StyleSheet.hairlineWidth,
-	borderBottomColor: themes[theme].headerBorder,
+	borderBottomColor: themes[theme].headerBackground,
 	elevation: 0
 });
 

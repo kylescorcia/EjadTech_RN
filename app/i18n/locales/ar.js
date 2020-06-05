@@ -173,7 +173,7 @@ export default {
 	Description: 'وصف',
 	DESKTOP_OPTIONS: 'خيارات سطح المكتب',
 	Directory: 'الدليل',
-	Direct_Messages: 'رسالة مباشرة',
+	Direct_Messages: 'الرسائل المباشرة',
 	Disable_notifications: 'أوقف التنبيهات',
 	Discussions: 'المناقشات',
 	Done: 'منجز',
@@ -534,5 +534,7 @@ export default {
 	You_will_be_logged_out_of_this_application: 'سيتم تسجيل خروجك من هذا التطبيق.',
 	Clear: 'مسح',
 	This_will_clear_all_your_offline_data: 'سيؤدي هذا إلى محو جميع بياناتك في وضع عدم الاتصال.',
-	Mark_unread: 'علامة غير مقروء'
+	Mark_unread: 'علامة غير مقروء',
+	Main: 'الأساسية',
+	Groups: 'مجموعات'
 };

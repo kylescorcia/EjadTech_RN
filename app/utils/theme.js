@@ -40,7 +40,7 @@ export const setNativeTheme = async(themePreferences) => {
 	if (isAndroid) {
 		const iconsLight = theme === 'light';
 		try {
-			await changeNavigationBarColor(themes[theme].navbarBackground, iconsLight);
+			await changeNavigationBarColor(themes[theme].navbarBackground, false);
 		} catch (error) {
 			// Do nothing
 		}

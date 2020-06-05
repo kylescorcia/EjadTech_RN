@@ -220,7 +220,7 @@ public class CustomPushNotification extends PushNotification {
             }
 
             String title = bundle.getString("title");
-            messageStyle.setConversationTitle(title);
+            messageStyle.setConversationTitle(""); 		// hide title username
 
             if (bundles != null) {
                 for (int i = 0; i < bundles.size(); i++) {

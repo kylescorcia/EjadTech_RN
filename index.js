@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import 'react-native-console-time-polyfill';
 import { AppRegistry } from 'react-native';
 import { name as appName, share as shareName } from './app.json';
+import AsyncStorage from '@react-native-community/async-storage';
 
 if (__DEV__) {
 	require('./app/ReactotronConfig');

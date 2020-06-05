@@ -32,7 +32,7 @@ export const themes = {
 		auxiliaryTintColor: '#caced1',
 		actionTintColor: '#1d74f5',
 		separatorColor: '#cbcbcc',
-		navbarBackground: '#ffffff',
+		navbarBackground: '#2f343d',
 		headerBorder: '#B2B2B2',
 		headerBackground: isIOS ? '#f8f8f8' : '#2f343d',
 		headerSecondaryBackground: '#ffffff',

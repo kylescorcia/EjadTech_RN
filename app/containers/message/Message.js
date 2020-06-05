@@ -69,7 +69,6 @@ const Message = React.memo((props) => {
 		const thread = props.isThreadReply ? <RepliedThread {...props} /> : null;
 		return (
 			<View style={[styles.container, props.style]}>
-				{thread}
 				<View style={[styles.flex, styles.center]}>
 					<MessageAvatar small {...props} />
 					<View

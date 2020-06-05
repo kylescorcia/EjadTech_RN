@@ -11,7 +11,7 @@ const StatusBar = React.memo(({ theme }) => {
 	if (theme === 'light' && isIOS) {
 		barStyle = 'dark-content';
 	}
-	return <StatusBarRN backgroundColor={themes[theme].headerBackground} barStyle={barStyle} animated />;
+	return <StatusBarRN backgroundColor={'#2f343d'} barStyle={barStyle} animated />;
 });
 
 StatusBar.propTypes = {

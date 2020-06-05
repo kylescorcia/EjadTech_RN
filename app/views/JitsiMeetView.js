@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import JitsiMeet, { JitsiMeetView as RNJitsiMeetView } from 'react-native-jitsi-meet';
 import BackgroundTimer from 'react-native-background-timer';
 import { connect } from 'react-redux';
+import { Text, View } from 'react-native';
 
 import RocketChat from '../lib/rocketchat';
 import { getUserSelector } from '../selectors/login';
@@ -86,11 +87,13 @@ class JitsiMeetView extends React.Component {
 
 	render() {
 		return (
-			<RNJitsiMeetView
-				onConferenceTerminated={this.onConferenceTerminated}
-				onConferenceJoined={this.onConferenceJoined}
-				style={sharedStyles.container}
-			/>
+			< >
+				<RNJitsiMeetView
+					onConferenceTerminated={this.onConferenceTerminated}
+					onConferenceJoined={this.onConferenceJoined}
+					style={sharedStyles.container}
+				/>
+			</>
 		);
 	}
 }

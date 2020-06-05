@@ -224,7 +224,7 @@ class Markdown extends PureComponent {
 	};
 
 	renderLink = ({ children, href }) => {
-		const { theme } = this.props;
+		const { theme, isReply } = this.props;
 		return (
 			<MarkdownLink
 				link={href}
@@ -402,7 +402,7 @@ class Markdown extends PureComponent {
 			m = shortnameToUnicode(m);
 			m = removeMarkdown(m);
 			return (
-				<Text accessibilityLabel={m} 
+				<Text accessibilityLabel={m}
 				style={[
 					styles.text, isBanner === '1'||isReplyBottom === '1' ? { color: '#222' } : {color: themes[theme].chatTextColor }, styles.text, ...style]} 
 					numberOfLines={numberOfLines} testID={testID}>

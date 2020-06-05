@@ -449,14 +449,16 @@ class RoomsListView extends React.Component {
 				const direct = chats.filter(s => s.t === 'd' && !s.prid);
 				if (this.state.selectedIndex === 0) {
 					tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
+					tempChats = this.addRoomsGroup(privateGroup, GROUPS_HEADER, tempChats);
+					tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
+					tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
 				}
 				if (this.state.selectedIndex === 1) {
-					tempChats = this.addRoomsGroup(privateGroup, GROUPS_HEADER, tempChats);
+					tempChats = this.addRoomsGroup(direct, DM_HEADER, tempChats);
 				}
 				if (this.state.selectedIndex === 2) {
 					tempChats = this.addRoomsGroup(channels, CHANNELS_HEADER, tempChats);
-				}
-				if (this.state.selectedIndex === 3) {
+					tempChats = this.addRoomsGroup(privateGroup, GROUPS_HEADER, tempChats);
 					tempChats = this.addRoomsGroup(discussions, DISCUSSIONS_HEADER, tempChats);
 				}
 				// }
@@ -901,14 +903,14 @@ class RoomsListView extends React.Component {
 				forceInset={{ vertical: 'never' }}
 			>
 				<SegmentedControl
-    				values={['Direct Message', 'Private Group', 'Channels', 'Discussions']}
+    				values={[I18n.t('Main'), I18n.t('Direct_Messages'), I18n.t('Groups')]}
 					selectedIndex={this.state.selectedIndex}
-					tintColor="#555555"
-					backgroundColor="#222222"
-					style={[{height: 45, textAlign: 'center', marginLeft: 0}]}
+					tintColor="#999999"
+					backgroundColor={themes[theme].headerBackground}
+					style={[{height: 45, borderRadius: 0}]}
 					fontStyle={{
 						fontFamily: 'Optima',
-						fontSize: 12,
+						fontSize: 15,
 					  }}
 					onChange={ this.onGroupChange }
  				 />

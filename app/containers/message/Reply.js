@@ -74,7 +74,7 @@ const Title = React.memo(({ attachment, timeFormat, theme }) => {
 	const { baseUrl, user } = useContext(MessageContext);
 	return (
 		<View style={styles.authorContainer}>
-			{attachment.author_name ? <Text style={[styles.author, { color: '#555' }]}>{user.name}</Text> : null}
+			{attachment.author_name ? <Text style={[styles.author, { color: '#555' }]}>{attachment.author_name}</Text> : null}
 			{time ? <Text style={[styles.time, { color: '#555' }]}>{ time }</Text> : null}
 		</View>
 	);

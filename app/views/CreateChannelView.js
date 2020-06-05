@@ -26,7 +26,7 @@ import { getUserSelector } from '../selectors/login';
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
 	},
 	list: {
 		width: '100%'
